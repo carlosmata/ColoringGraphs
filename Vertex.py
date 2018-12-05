@@ -22,6 +22,13 @@ class Vertex(object):
 	def setEdges(self, vertexs):
 		self.edges = list(set(self.edges + vertexs))
 
+	# Add a set of edges in the vertex
+	def setEdgesWithoutSelf(self, vertexs):
+		trueVertxs = vertexs.copy()
+		if self in trueVertxs:
+			trueVertxs.remove(self)
+		self.edges = list(set(self.edges + trueVertxs))
+
 	#Determines if the vertex has a transition with the vertex sent
 	def hasEdgeWith(self, vertex):
 		for v in self.edges:
