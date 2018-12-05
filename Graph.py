@@ -4,8 +4,11 @@
 	05/11/2018
 '''
 from Vertex import Vertex
+from graphviz import Graph
+from random import random
+import subprocess
 
-class Graph(object):
+class GraphC(object):
 
 	def __init__(self, vs = []):
 		self.vertexs = vs			#list of vertexs
@@ -44,4 +47,60 @@ class Graph(object):
 		cad = cad + "]";
 
 		return cad
+
+	#Execute the command to generate the image using graphviz
+	def executeCommand(self, fileName, format):
+		try:
+			subprocess.call("./bin/dot.exe" + " -T" + format + " " + 
+							 fileName  + ".txt -o " + fileName + "." + format)
+		except:
+			print("An exception occurred")
+
+	#Get the maximun color of the vertexs
+	def getMaximumColor(self):
+		max = 0
+		for vertex in self.vertexs:
+			if(vertex.getColor() > max):
+				max =  vertex.getColor()
+
+		return max + 1;
+
+	#Execute the image of the graph
+	def generateImage(self):
+
+		filesource = "output/sourceGraph"
+		colors = self.generateColors()
+		
+		self.generateFileTxt(filesource, colors)
+		self.executeCommand(filesource, "png")
+
+	#Generate the file TXT to the image graph
+	def generateFileTxt(self, filesource, colors):
+		dot = Graph('G', filename='coloring.gv', engine='sfdp')
+
+		for node in self.vertexs:
+			dot.attr('node', shape='ellipse', style='filled', color=colors[node.getColor()], fontcolor='white')
+			dot.node(node.id)
+
+		for node in self.vertexs:
+			node.drawing = True
+			for edge in node.getEdges():
+				if(not edge.drawing):
+					dot.edge(node.id, edge.id)
+
+		file = open(filesource + ".txt","w") 
+		file.write(dot.source) 
+		file.close()
+
+	#generate the colors to the graph
+	def generateColors(self):
+		colors =[]
+
+		#generates the colors
+		for c in range(self.getMaximumColor()):
+			colors.append(str(random()) + ' ' + 
+							str(random()) + ' ' + 
+							str(random()))
+
+		return colors
 

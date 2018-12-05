@@ -11,6 +11,7 @@ class Vertex(object):
 		self.id = id
 		self.edges = []
 		self.color = None
+		self.drawing = False
 
 	#Add an edge in the vertex 
 	def setEdge(self, vertex):
@@ -55,7 +56,7 @@ class Vertex(object):
 	#Calculate the color of the vertex
 	def coloring(self):
 		notAvailable = []
-		colorPossible = 1
+		colorPossible = 0
 
 		for v in self.edges:
 			if(v.isColored()):

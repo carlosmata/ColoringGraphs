@@ -1,0 +1,33 @@
+graph G {
+	node [color="0.3823744678198623 0.3983215649774886 0.041030208958710124" fontcolor=white shape=ellipse style=filled]
+	ingles
+	node [color="0.4984311217860009 0.1641724412236255 0.245740119594542" fontcolor=white shape=ellipse style=filled]
+	automatas
+	node [color="0.5295943606077455 0.971686810033688 0.7725090734389297" fontcolor=white shape=ellipse style=filled]
+	algoritmos
+	node [color="0.6016492409509623 0.9276047089248642 0.15225512272609232" fontcolor=white shape=ellipse style=filled]
+	grafos
+	node [color="0.4984311217860009 0.1641724412236255 0.245740119594542" fontcolor=white shape=ellipse style=filled]
+	senales
+	node [color="0.6548731084585997 0.6230595686815095 0.4864625009146889" fontcolor=white shape=ellipse style=filled]
+	software
+	node [color="0.6016492409509623 0.9276047089248642 0.15225512272609232" fontcolor=white shape=ellipse style=filled]
+	probabilidad
+	ingles -- algoritmos
+	ingles -- grafos
+	ingles -- senales
+	ingles -- probabilidad
+	ingles -- software
+	ingles -- automatas
+	automatas -- algoritmos
+	automatas -- grafos
+	automatas -- software
+	algoritmos -- grafos
+	algoritmos -- senales
+	algoritmos -- probabilidad
+	algoritmos -- software
+	grafos -- software
+	senales -- software
+	senales -- probabilidad
+	software -- probabilidad
+}

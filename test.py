@@ -1,5 +1,4 @@
-#from graphviz import Digraph
-from Graph import Graph
+from Graph import GraphC
 from Vertex import Vertex
 
 ingles = Vertex("ingles")
@@ -34,21 +33,10 @@ senales.setEdge(probabilidad)
 software.setEdge(probabilidad)
 
 
-g = Graph([ingles, automatas, algoritmos, grafos, senales, software, probabilidad])
+g = GraphC([ingles, automatas, algoritmos, grafos, senales, software, probabilidad])
 
 g.coloring()
 
 print(g.print())
-"""
-dot = Digraph(comment='The Round Table')
 
-dot.node('A', 'King Arthur')
-dot.node('B', 'Sir Bedevere the Wise')
-dot.node('L', 'Sir Lancelot the Brave')
-
-dot.edges(['AB', 'AL'])
-dot.edge('B', 'L', constraint='false')
-
-print(dot.source)  # doctest: +NORMALIZE_WHITESPACE
-
-dot.render('test-output/round-table.gv', view=False)  # doctest: +SKIP """
+g.generateImage()
