@@ -88,6 +88,7 @@ class GraphC(object):
 				if(not edge.drawing):
 					dot.edge(node.id, edge.id)
 
+		dot.attr(label='(Las materias con diferente color no pueden compartir horario)')
 		file = open(filesource + ".txt","w") 
 		file.write(dot.source) 
 		file.close()

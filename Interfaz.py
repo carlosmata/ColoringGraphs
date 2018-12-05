@@ -2,10 +2,11 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, \
     QPushButton, QAction, QLineEdit, QMessageBox, \
     QCalendarWidget, QLabel, QVBoxLayout, QDialog, QTableWidget, \
-    QTableWidgetItem, QGroupBox, QGridLayout, QCheckBox, QInputDialog
-from PyQt5.QtGui import QIcon
+    QTableWidgetItem, QGroupBox, QGridLayout, QCheckBox, QInputDialog, \
+    QLabel
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtCore import pyqtSlot, QDate
-import sip
+
 import Vertex, Graph
 
 
@@ -66,7 +67,7 @@ class App(QMainWindow):
         self.beginCalculation.clicked.connect(self.BeginCalculation)
 
         #Testing
-        for j in range(7):
+        """for j in range(7):
             self.numberOfColumns += 1
             self.tableWidget.setColumnCount(self.numberOfColumns)
             self.horizontalHeaders.append("ColTest" + str(j))
@@ -82,7 +83,7 @@ class App(QMainWindow):
             self.tableWidget.setVerticalHeaderLabels(self.verticalHeaders)
             for i in range(self.numberOfColumns):
                 self.tableWidget.setItem(self.numberOfRows - 1, i, QTableWidgetItem(" "))
-            self.tableWidget.resizeRowsToContents()
+            self.tableWidget.resizeRowsToContents()"""
         #Testing
 
         self.show()
@@ -139,6 +140,8 @@ class App(QMainWindow):
         self.graph = Graph.GraphC(vertices)
         self.graph.coloring()
         print(self.graph.print())
+        self.graph.generateImage()
+
         self.ventana2 = VentanaGrafo()
         self.ventana2.show()
 
@@ -150,14 +153,28 @@ class VentanaGrafo(QMainWindow):
         QMainWindow.__init__(self)
 
         self.title = "Grafo Pintado"
-        self.setWindowTitle(self.title)
 
         self.left = 50
         self.top = 50
         self.width = 640
         self.height = 480
+        self.initUI()
 
+    def initUI(self):
+        self.setWindowTitle(self.title)
         self.setGeometry(self.left, self.top, self.width, self.height)
+
+        #Add Image
+        self.central_widget = QWidget()               
+        self.setCentralWidget(self.central_widget)    
+        lay = QVBoxLayout(self.central_widget)
+
+        label = QLabel(self)
+        pixmap = QPixmap('output/sourceGraph.png')
+        label.setPixmap(pixmap)
+        self.resize(pixmap.width(), pixmap.height())
+
+        lay.addWidget(label)
 
 
 
